@@ -3,6 +3,7 @@ import Board from './Board';
 import GameStatus from './GameStatus';
 import PlayerInfo from './PlayerInfo';
 import Confetti from './Confetti';
+import GameInstructions from './GameInstructions';
 import useTicTacToe from '../hooks/useTicTacToe';
 
 // PUBLIC_INTERFACE

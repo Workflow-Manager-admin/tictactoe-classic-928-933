@@ -150,6 +150,51 @@
   font-weight: bold;
 }
 
+/* Game Instructions */
+.game-instructions {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.instructions-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+.instructions-panel {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.instructions-panel h3 {
+  margin-top: 0;
+  color: var(--kavia-orange);
+}
+
+.instructions-panel ol {
+  padding-left: 20px;
+}
+
+.instructions-panel li {
+  margin-bottom: 8px;
+}
+
+.instructions-panel .tips {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.instructions-panel .tips h4 {
+  margin-top: 0;
+  color: var(--text-secondary);
+}
+
 /* Responsive styling */
 @media (max-width: 768px) {
   .game-content {
