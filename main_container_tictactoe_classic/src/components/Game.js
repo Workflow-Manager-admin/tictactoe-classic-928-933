@@ -8,19 +8,28 @@ import Board from './Board';
  */
 function Game() {
   // Initialize state for the game
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [history, setHistory] = useState([{
+    squares: Array(9).fill(null),
+  }]);
+  const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
+  
+  // Get current squares from history
+  const current = history[stepNumber];
   
   /**
    * Handle a square click.
    * @param {number} i Index of the clicked square
    */
   const handleClick = (i) => {
-    // Create a copy of the squares array
-    const squaresCopy = squares.slice();
+    // Get history up to current step
+    const historyCurrent = history.slice(0, stepNumber + 1);
+    
+    // Create a copy of the current squares array
+    const squaresCopy = current.squares.slice();
     
     // Return early if the game is won or the square is already filled
-    if (calculateWinner(squaresCopy) || squaresCopy[i]) {
+    if (calculateWinner(squaresCopy).winner || squaresCopy[i]) {
       return;
     }
     
@@ -28,44 +37,81 @@ function Game() {
     squaresCopy[i] = xIsNext ? 'X' : 'O';
     
     // Update state
-    setSquares(squaresCopy);
+    setHistory([...historyCurrent, { squares: squaresCopy }]);
+    setStepNumber(historyCurrent.length);
     setXIsNext(!xIsNext);
+  };
+  
+  /**
+   * Jump to a specific move in the game history
+   * @param {number} step The step number to jump to
+   */
+  const jumpTo = (step) => {
+    setStepNumber(step);
+    setXIsNext((step % 2) === 0);
   };
   
   /**
    * Reset the game to initial state
    */
   const resetGame = () => {
-    setSquares(Array(9).fill(null));
+    setHistory([{
+      squares: Array(9).fill(null),
+    }]);
+    setStepNumber(0);
     setXIsNext(true);
   };
   
   // Calculate the game status
-  const winner = calculateWinner(squares);
+  const { winner, line } = calculateWinner(current.squares);
   let status;
   
   if (winner) {
     status = `Winner: ${winner}`;
-  } else if (squares.every((square) => square !== null)) {
+  } else if (current.squares.every((square) => square !== null)) {
     status = 'Game ended in a draw!';
   } else {
     status = `Next player: ${xIsNext ? 'X' : 'O'}`;
   }
   
+  // Create move history buttons
+  const moves = history.map((_, move) => {
+    const desc = move ?
+      `Go to move #${move}` :
+      'Go to game start';
+    return (
+      <li key={move}>
+        <button 
+          className={`history-button ${stepNumber === move ? 'current-step' : ''}`}
+          onClick={() => jumpTo(move)}
+        >
+          {desc}
+        </button>
+      </li>
+    );
+  });
+  
   return (
     <div className="game">
-      <h1 className="title">Tic Tac Toe</h1>
-      <div className="game-board">
-        <Board 
-          squares={squares} 
-          onClick={handleClick} 
-        />
-      </div>
-      <div className="game-info">
-        <div className="status">{status}</div>
-        <button className="btn reset-button" onClick={resetGame}>
-          Reset Game
-        </button>
+      <h1 className="title">Tic Tac Toe Classic</h1>
+      <div className="game-content">
+        <div className="game-board">
+          <Board 
+            squares={current.squares} 
+            onClick={handleClick}
+            winningLine={line}
+          />
+        </div>
+        <div className="game-info">
+          <div className={`status ${winner ? 'winner' : ''}`}>{status}</div>
+          <button className="btn reset-button" onClick={resetGame}>
+            Reset Game
+          </button>
+          <div className="game-history">
+            <h2 className="history-title">Game History</h2>
+            <ol>{moves}</ol>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -74,7 +120,7 @@ function Game() {
 /**
  * Calculate the winner of the game.
  * @param {Array<string|null>} squares The current state of the board
- * @returns {string|null} The winner (X or O) or null if there's no winner
+ * @returns {Object} Object with winner (X, O, or null) and line (winning line indices or null)
  */
 function calculateWinner(squares) {
   // Possible winning combinations (rows, columns, diagonals)
@@ -93,11 +139,14 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return { 
+        winner: squares[a], 
+        line: lines[i] 
+      };
     }
   }
   
-  return null;
+  return { winner: null, line: null };
 }
 
 export default Game;
