@@ -33,7 +33,11 @@ function useTicTacToe() {
     }
     
     // Set the value of the clicked square to X or O
-    squaresCopy[i] = xIsNext ? 'X' : 'O';
+    const playerMark = xIsNext ? 'X' : 'O';
+    squaresCopy[i] = playerMark;
+    
+    // Play move sound
+    Sound.playMove(playerMark);
     
     // Update state
     setHistory([...historyCurrent, { squares: squaresCopy }]);
