@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Game from './components/Game';
 import './components/TicTacToe.css';
+import './components/animations.css';
 
 function App() {
   return (
