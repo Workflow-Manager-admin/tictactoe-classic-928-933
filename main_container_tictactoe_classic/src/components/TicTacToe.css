@@ -4,9 +4,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 20px;
   margin-top: 40px;
+}
+
+.game-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
 }
 
 .game-board {
@@ -45,6 +52,34 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+/* Colored X and O */
+.square.x-value {
+  color: var(--x-color);
+}
+
+.square.o-value {
+  color: var(--o-color);
+}
+
+/* Winning square animation */
+.square.winning-square {
+  background-color: rgba(255, 255, 255, 0.2);
+  animation: pulse 1.5s infinite;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
 .game-info {
   margin-top: 20px;
   display: flex;
@@ -61,15 +96,73 @@
 
 .reset-button {
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 /* Winner styling */
-.game-info .status.winner {
+.status.winner {
   color: var(--kavia-orange);
   font-weight: 700;
 }
 
+/* Game History */
+.game-history {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  min-width: 180px;
+}
+
+.history-title {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+
+.game-history ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.game-history li {
+  margin-bottom: 8px;
+}
+
+.history-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.history-button.current-step {
+  background-color: var(--kavia-orange);
+  font-weight: bold;
+}
+
 /* Responsive styling */
+@media (max-width: 768px) {
+  .game-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .game-history {
+    width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .square {
     width: 60px;
