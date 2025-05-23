@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Board from './Board';
+import GameStatus from './GameStatus';
+import PlayerInfo from './PlayerInfo';
 
 // PUBLIC_INTERFACE
 /**
