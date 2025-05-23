@@ -1,5 +1,35 @@
 /* Animation styles for the TicTacToe game */
 
+/* Confetti animation */
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.confetti-particle {
+  position: absolute;
+  will-change: transform;
+}
+
 /* Fade in animation for squares */
 @keyframes fadeIn {
   0% {
