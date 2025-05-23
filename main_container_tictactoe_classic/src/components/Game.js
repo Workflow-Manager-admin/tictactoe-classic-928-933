@@ -42,6 +42,23 @@ function Game() {
     );
   });
   
+  // Create move history buttons
+  const moves = history.map((_, move) => {
+    const desc = move ?
+      `Go to move #${move}` :
+      'Go to game start';
+    return (
+      <li key={move}>
+        <button 
+          className={`history-button ${stepNumber === move ? 'current-step' : ''}`}
+          onClick={() => jumpTo(move)}
+        >
+          {desc}
+        </button>
+      </li>
+    );
+  });
+
   return (
     <div className="game">
       <h1 className="title">Tic Tac Toe Classic</h1>
@@ -70,6 +87,7 @@ function Game() {
           </div>
         </div>
       </div>
+      <Confetti show={!!winner} />
     </div>
   );
 }
