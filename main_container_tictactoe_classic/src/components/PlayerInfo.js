@@ -20,8 +20,7 @@ function PlayerInfo({ xIsNext }) {
     height: '16px',
     borderRadius: '50%',
     backgroundColor: xIsNext ? 'var(--x-color)' : 'var(--o-color)',
-    boxShadow: '0 0 8px 0px currentColor',
-    className: 'indicator'
+    boxShadow: '0 0 8px 0px rgba(255, 255, 255, 0.5)'
   };
 
   const currentPlayer = xIsNext ? 'X' : 'O';
