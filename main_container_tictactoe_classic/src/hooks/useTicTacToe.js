@@ -1,15 +1,10 @@
-import React from 'react';
-import Board from './Board';
-import GameStatus from './GameStatus';
-import PlayerInfo from './PlayerInfo';
-import useTicTacToe from '../hooks/useTicTacToe';
+import { useState } from 'react';
 
-// PUBLIC_INTERFACE
 /**
- * Game component manages the state and logic for the TicTacToe game.
- * @returns {JSX.Element} The rendered Game component
+ * Custom hook to manage TicTacToe game state and logic
+ * @returns {Object} Game state and functions
  */
-function Game() {
+function useTicTacToe() {
   // Initialize state for the game
   const [history, setHistory] = useState([{
     squares: Array(9).fill(null),
@@ -17,19 +12,19 @@ function Game() {
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
   
-  // Get current squares from history
+  // Get current board state
   const current = history[stepNumber];
   
   /**
-   * Handle a square click.
-   * @param {number} i Index of the clicked square
+   * Handle square click
+   * @param {number} i Index of square that was clicked
    */
   const handleClick = (i) => {
     // Get history up to current step
     const historyCurrent = history.slice(0, stepNumber + 1);
     
     // Create a copy of the current squares array
-    const squaresCopy = current.squares.slice();
+    const squaresCopy = [...current.squares];
     
     // Return early if the game is won or the square is already filled
     if (calculateWinner(squaresCopy).winner || squaresCopy[i]) {
@@ -46,7 +41,7 @@ function Game() {
   };
   
   /**
-   * Jump to a specific move in the game history
+   * Jump to a specific move in history
    * @param {number} step The step number to jump to
    */
   const jumpTo = (step) => {
@@ -65,10 +60,10 @@ function Game() {
     setXIsNext(true);
   };
   
-  // Calculate the game status
+  // Calculate game status
   const { winner, line } = calculateWinner(current.squares);
-  let status;
   
+  let status;
   if (winner) {
     status = `Winner: ${winner}`;
   } else if (current.squares.every((square) => square !== null)) {
@@ -77,57 +72,22 @@ function Game() {
     status = `Next player: ${xIsNext ? 'X' : 'O'}`;
   }
   
-  // Create move history buttons
-  const moves = history.map((_, move) => {
-    const desc = move ?
-      `Go to move #${move}` :
-      'Go to game start';
-    return (
-      <li key={move}>
-        <button 
-          className={`history-button ${stepNumber === move ? 'current-step' : ''}`}
-          onClick={() => jumpTo(move)}
-        >
-          {desc}
-        </button>
-      </li>
-    );
-  });
-  
-  return (
-    <div className="game">
-      <h1 className="title">Tic Tac Toe Classic</h1>
-      <div className="game-content">
-        <div className="game-board">
-          {!winner && !current.squares.every(square => square !== null) && (
-            <PlayerInfo xIsNext={xIsNext} />
-          )}
-          <Board 
-            squares={current.squares} 
-            onClick={handleClick}
-            winningLine={line}
-          />
-        </div>
-        <div className="game-info">
-          <GameStatus 
-            status={status} 
-            isWinner={!!winner} 
-          />
-          <button className="btn reset-button" onClick={resetGame}>
-            Reset Game
-          </button>
-          <div className="game-history">
-            <h2 className="history-title">Game History</h2>
-            <ol>{moves}</ol>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return {
+    history,
+    current,
+    xIsNext,
+    stepNumber,
+    winner,
+    line,
+    status,
+    handleClick,
+    jumpTo,
+    resetGame
+  };
 }
 
 /**
- * Calculate the winner of the game.
+ * Calculate the winner of the game
  * @param {Array<string|null>} squares The current state of the board
  * @returns {Object} Object with winner (X, O, or null) and line (winning line indices or null)
  */
@@ -158,4 +118,4 @@ function calculateWinner(squares) {
   return { winner: null, line: null };
 }
 
-export default Game;
+export default useTicTacToe;
