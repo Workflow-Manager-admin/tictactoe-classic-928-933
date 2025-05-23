@@ -10,72 +10,19 @@ import useTicTacToe from '../hooks/useTicTacToe';
  * @returns {JSX.Element} The rendered Game component
  */
 function Game() {
-  // Initialize state for the game
-  const [history, setHistory] = useState([{
-    squares: Array(9).fill(null),
-  }]);
-  const [stepNumber, setStepNumber] = useState(0);
-  const [xIsNext, setXIsNext] = useState(true);
-  
-  // Get current squares from history
-  const current = history[stepNumber];
-  
-  /**
-   * Handle a square click.
-   * @param {number} i Index of the clicked square
-   */
-  const handleClick = (i) => {
-    // Get history up to current step
-    const historyCurrent = history.slice(0, stepNumber + 1);
-    
-    // Create a copy of the current squares array
-    const squaresCopy = current.squares.slice();
-    
-    // Return early if the game is won or the square is already filled
-    if (calculateWinner(squaresCopy).winner || squaresCopy[i]) {
-      return;
-    }
-    
-    // Set the value of the clicked square to X or O
-    squaresCopy[i] = xIsNext ? 'X' : 'O';
-    
-    // Update state
-    setHistory([...historyCurrent, { squares: squaresCopy }]);
-    setStepNumber(historyCurrent.length);
-    setXIsNext(!xIsNext);
-  };
-  
-  /**
-   * Jump to a specific move in the game history
-   * @param {number} step The step number to jump to
-   */
-  const jumpTo = (step) => {
-    setStepNumber(step);
-    setXIsNext((step % 2) === 0);
-  };
-  
-  /**
-   * Reset the game to initial state
-   */
-  const resetGame = () => {
-    setHistory([{
-      squares: Array(9).fill(null),
-    }]);
-    setStepNumber(0);
-    setXIsNext(true);
-  };
-  
-  // Calculate the game status
-  const { winner, line } = calculateWinner(current.squares);
-  let status;
-  
-  if (winner) {
-    status = `Winner: ${winner}`;
-  } else if (current.squares.every((square) => square !== null)) {
-    status = 'Game ended in a draw!';
-  } else {
-    status = `Next player: ${xIsNext ? 'X' : 'O'}`;
-  }
+  // Use the TicTacToe custom hook
+  const {
+    history,
+    current,
+    xIsNext,
+    stepNumber,
+    winner,
+    line,
+    status,
+    handleClick,
+    jumpTo,
+    resetGame
+  } = useTicTacToe();
   
   // Create move history buttons
   const moves = history.map((_, move) => {
