@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Sound from '../utils/Sound';
 
 /**
  * Custom hook to manage TicTacToe game state and logic
