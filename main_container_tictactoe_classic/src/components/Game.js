@@ -88,6 +88,7 @@ function Game() {
           </div>
         </div>
       </div>
+      <GameInstructions />
       <Confetti show={!!winner} />
     </div>
   );
