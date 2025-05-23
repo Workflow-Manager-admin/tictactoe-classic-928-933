@@ -67,11 +67,21 @@ function useTicTacToe() {
   
   // Calculate game status
   const { winner, line } = calculateWinner(current.squares);
+  const isDraw = !winner && current.squares.every(square => square !== null);
+  
+  // Play sound effects when game ends
+  useEffect(() => {
+    if (winner) {
+      Sound.playWin();
+    } else if (isDraw) {
+      Sound.playDraw();
+    }
+  }, [winner, isDraw]);
   
   let status;
   if (winner) {
     status = `Winner: ${winner}`;
-  } else if (current.squares.every((square) => square !== null)) {
+  } else if (isDraw) {
     status = 'Game ended in a draw!';
   } else {
     status = `Next player: ${xIsNext ? 'X' : 'O'}`;
