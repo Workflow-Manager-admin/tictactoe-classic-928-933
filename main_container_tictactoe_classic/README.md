@@ -1,82 +1,102 @@
-# Lightweight React Template for KAVIA
+# Tic Tac Toe Classic
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A modern implementation of the classic Tic Tac Toe game built with React.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- 🎮 Classic 3x3 grid gameplay with X and O marks
+- 🏆 Win detection with line highlighting
+- 🎉 Confetti celebration for winners
+- 🔊 Sound effects for moves, wins, and draws
+- ⏪ Game history navigation to revisit moves
+- 📱 Responsive design for all screen sizes
+- 🎨 Modern UI with Kavia theme styling
+- 📖 Game instructions for new players
+
+## Screenshots
+
+![Tic Tac Toe Classic Game](screenshot.png)
 
 ## Getting Started
 
-In the project directory, you can run:
+### Prerequisites
 
-### `npm start`
+- Node.js (v14 or higher)
+- npm or yarn
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
 
-### `npm test`
+1. Clone the repository
+2. Navigate to the project directory
+3. Install the dependencies:
 
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+```bash
+npm install
 ```
 
-### Components
+### Running the App
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+To start the development server:
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+```bash
+npm start
+```
 
-## Learn More
+The app will be available at http://localhost:3000
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Building for Production
 
-### Code Splitting
+To create a production build:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm run build
+```
 
-### Analyzing the Bundle Size
+## How to Play
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. The game is played on a 3×3 grid
+2. Players take turns placing their marks (X or O) on the grid
+3. The first player to get 3 of their marks in a row (horizontally, vertically, or diagonally) wins
+4. If all squares are filled and no player has 3 in a row, the game is a draw
+5. Use the history buttons to go back to previous moves
+6. Click "Reset Game" to start over
 
-### Making a Progressive Web App
+## Game Features Explained
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Game State Management
 
-### Advanced Configuration
+The game state is managed using React Hooks, with a custom `useTicTacToe` hook that encapsulates all the game logic:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Current board state
+- Player turns
+- Move history
+- Win detection
+- Game reset functionality
 
-### Deployment
+### Special Effects
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Sound Effects**: Unique sounds for X moves, O moves, wins, and draws using the Web Audio API
+- **Winning Animation**: Pulsing animation on the winning line of squares
+- **Confetti**: Celebration effect when a player wins
+- **Color Coding**: X and O have distinct colors for better visibility
 
-### `npm run build` fails to minify
+## Code Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `/src/components` - React components for the game UI
+- `/src/hooks` - Custom React hooks for game logic
+- `/src/utils` - Utility functions and classes (like Sound effects)
+
+## Technologies Used
+
+- React (Hooks)
+- CSS3 (Animations, Flexbox)
+- Web Audio API (for sound effects)
+
+## License
+
+MIT
+
+## Acknowledgments
+
+- Built for Kavia AI
+- Inspired by the classic game of Tic Tac Toe
