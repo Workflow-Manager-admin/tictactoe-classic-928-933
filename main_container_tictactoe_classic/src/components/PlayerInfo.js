@@ -19,13 +19,18 @@ function PlayerInfo({ xIsNext }) {
     width: '16px',
     height: '16px',
     borderRadius: '50%',
-    backgroundColor: xIsNext ? 'var(--x-color)' : 'var(--o-color)'
+    backgroundColor: xIsNext ? 'var(--x-color)' : 'var(--o-color)',
+    boxShadow: '0 0 8px 0px currentColor',
+    className: 'indicator'
   };
+
+  const currentPlayer = xIsNext ? 'X' : 'O';
+  const playerColor = xIsNext ? 'teal' : 'orange';
 
   return (
     <div className="player-info" style={playerStyle}>
       <div style={indicatorStyle}></div>
-      <span>Player {xIsNext ? 'X' : 'O'}'s turn</span>
+      <span>Player <strong style={{color: xIsNext ? 'var(--x-color)' : 'var(--o-color)'}}>{currentPlayer}</strong>'s turn</span>
     </div>
   );
 }
