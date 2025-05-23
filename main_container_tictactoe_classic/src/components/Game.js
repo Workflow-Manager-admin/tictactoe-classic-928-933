@@ -98,6 +98,9 @@ function Game() {
       <h1 className="title">Tic Tac Toe Classic</h1>
       <div className="game-content">
         <div className="game-board">
+          {!winner && !current.squares.every(square => square !== null) && (
+            <PlayerInfo xIsNext={xIsNext} />
+          )}
           <Board 
             squares={current.squares} 
             onClick={handleClick}
@@ -105,7 +108,10 @@ function Game() {
           />
         </div>
         <div className="game-info">
-          <div className={`status ${winner ? 'winner' : ''}`}>{status}</div>
+          <GameStatus 
+            status={status} 
+            isWinner={!!winner} 
+          />
           <button className="btn reset-button" onClick={resetGame}>
             Reset Game
           </button>
