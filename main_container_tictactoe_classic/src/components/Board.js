@@ -7,14 +7,19 @@ import Square from './Square';
  * @param {Object} props Component props
  * @param {Array<string|null>} props.squares Array of 9 elements representing the board state
  * @param {Function} props.onClick Function to call when a square is clicked, with the square index
+ * @param {Array<number>|null} props.winningLine Array of indices that form the winning line, or null
  * @returns {JSX.Element} The rendered Board component
  */
-function Board({ squares, onClick }) {
+function Board({ squares, onClick, winningLine }) {
   const renderSquare = (i) => {
+    const isWinningSquare = winningLine && winningLine.includes(i);
+    
     return (
       <Square
+        key={i}
         value={squares[i]}
         onClick={() => onClick(i)}
+        isWinningSquare={isWinningSquare}
       />
     );
   };
