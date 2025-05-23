@@ -27,7 +27,7 @@ function Game() {
   } = useTicTacToe();
   
   // Create move history buttons
-  const moveButtons = history.map((_, move) => {
+  const historyButtons = history.map((_, move) => {
     const desc = move ?
       `Go to move #${move}` :
       'Go to game start';
@@ -44,7 +44,7 @@ function Game() {
   });
   
   // Create move history buttons
-  const moveButtons = history.map((_, move) => {
+  const historyButtons = history.map((_, move) => {
     const desc = move ?
       `Go to move #${move}` :
       'Go to game start';
@@ -84,7 +84,7 @@ function Game() {
           </button>
           <div className="game-history">
             <h2 className="history-title">Game History</h2>
-            <ol>{moveButtons}</ol>
+            <ol>{historyButtons}</ol>
           </div>
         </div>
       </div>
